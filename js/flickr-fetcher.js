@@ -15,9 +15,23 @@ FlickrFetcher = {
             title: photoObj.title,
             url:   FlickrFetcher.photoObjToURL(photoObj)
         }
+    },
+    
+    fetchFlickrData: function(apiKey, fetch) {
+        var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='
+            + apiKey + '&text=pugs&format=json&nojsoncallback=1';
+        return fetch(url);
+    },
+    
+    fetchPhotos: function(apiKey, fetch) {
+        return FlickrFetcher.fetchFlickrData(apiKey, fetch).then(function(data) {
+            return data.photos.photo.map(FlickrFetcher.transformPhotoObj);
+        });
     }
 };
 
 module.exports = FlickrFetcher;
 
 //https://jrsinclair.com/articles/2016/gentle-introduction-to-javascript-tdd-intro/
+//https://jrsinclair.com/articles/2016/gentle-introduction-to-javascript-tdd-ajax/
+//https://jrsinclair.com/articles/2016/gentle-introduction-to-javascript-tdd-html-dom/
