@@ -27,3 +27,22 @@ describe('#photoToListItem()', function() {
         expect(PhotoLister.photoToListItem(input)).to.equal(expected);
     });
 });
+
+describe('#photoListToHTML()', function() {
+    it('should take an array of photo objects and convert them to an HTML list', function() {
+        var input = [
+            {
+                title:  'This is a test',
+                url:    'http://loremflickr.com/960/593'
+            }, {
+                title:  'This is another test',
+                url:    'http://loremflickr.com/960/593/puppy'
+            }
+        ],
+            expected = '<ul><li><figure><img src="http://loremflickr.com/960/593" alt=""/>'
+                     + '<figcaption>This is a test</figcaption></figure></li>'
+                     + '<li><figure><img src="http://loremflickr.com/960/593/puppy" alt=""/>'
+                     + '<figcaption>This is another test</figcaption></figure></li></ul>';
+        expect(PhotoLister.photoListToHTML(input)).to.equal(expected);
+    });
+});
